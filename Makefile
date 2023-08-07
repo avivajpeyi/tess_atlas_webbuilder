@@ -11,6 +11,10 @@ BUILDDIR      = build
 # $(O) is meant as a shortcut for $(SPHINXOPTS)
 ALLSPHINXOPTS   = -v -j auto -d $(BUILDDIR)/doctrees $(SPHINXOPTS) $(O) $(SOURCEDIR)
 
+.PHONY: html
+html: Makefile
+	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) "$(BUILDDIR)/$@"
+
 .PHONY: help
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
