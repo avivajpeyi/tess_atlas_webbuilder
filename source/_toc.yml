@@ -1,9 +1,11 @@
 format: jb-book
 root: index
 parts:
-  - chapters:
-    - file: objects/example_loader
-    - file: citation
-    - file: objects/toi_notebooks/menu
-      sections:
-        - glob: objects/toi_notebooks/toi_*
+- chapters:
+  - file: objects/example_loader
+  - file: citation
+  - file: all_objects
+  # - file: objects/toi_notebooks/menu
+  #   sections:
+  #     - glob: objects/toi_notebooks/toi_*
+  - glob: objects/toi_*.ipynb

@@ -21,7 +21,16 @@ extensions = [
     "sphinx_remove_toctrees",
 ]
 nb_execution_mode = "off"
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
+exclude_patterns = [
+    "_build", "Thumbs.db", ".DS_Store",
+    "objects/toi_1001.ipynb",
+    "objects/toi_1003.ipynb",
+    "objects/toi_1004.ipynb",
+    "objects/toi_1005.ipynb",
+    "objects/toi_1006.ipynb",
+    "objects/toi_1009.ipynb",
+    "objects/toi_1010.ipynb",
+]
 html_theme = "sphinx_book_theme"
 html_theme_options = dict(
     repository_url="https://github.com/dfm/tess-atlas",
@@ -47,7 +56,7 @@ html_permalinks = True
 html_sourcelink_suffix = ""
 numfig = True
 panels_add_bootstrap_css = True
-suppress_warnings = ["myst.domains", "myst.header"]
+suppress_warnings = ["myst.domains", "myst.header", "etoc.toctree"]
 html_copy_source = True
 remove_from_toctrees = ["objects/toi_notebooks/toi_*.ipynb"]
 comments_config = {
