@@ -13,7 +13,7 @@ ALLSPHINXOPTS = -v -j auto -d $(BUILDDIR)/doctrees $(SPHINXOPTS) $(O) $(SOURCEDI
 
 .PHONY: html
 html: Makefile
-	time $(SPHINXBUILD) -b html $(ALLSPHINXOPTS) "$(BUILDDIR)/$@"
+	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) "$(BUILDDIR)/$@"
 
 .PHONY: help
 help:
