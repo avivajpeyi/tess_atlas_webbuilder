@@ -48,7 +48,7 @@ html_sourcelink_suffix = ""
 numfig = True
 panels_add_bootstrap_css = True
 suppress_warnings = ["myst.domains", "myst.header"]
-html_copy_source = False
+html_copy_source = True
 remove_from_toctrees = ["objects/toi_notebooks/toi_*.ipynb"]
 comments_config = {
     "utterances": {
