@@ -1,0 +1,6 @@
+myst_nb>=0.17.2
+sphinx_comments
+sphinx_external_toc
+sphinx_design
+sphinx_book_theme
+sphinx_remove_toctrees
