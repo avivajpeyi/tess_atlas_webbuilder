@@ -9,11 +9,11 @@ BUILDDIR      = build
 
 # Internal variables.
 # $(O) is meant as a shortcut for $(SPHINXOPTS)
-ALLSPHINXOPTS   = -v -j auto -d $(BUILDDIR)/doctrees $(SPHINXOPTS) $(O) $(SOURCEDIR)
+ALLSPHINXOPTS = -v -j auto -d $(BUILDDIR)/doctrees $(SPHINXOPTS) $(O) $(SOURCEDIR)
 
 .PHONY: html
 html: Makefile
-	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) "$(BUILDDIR)/$@"
+	time $(SPHINXBUILD) -b html $(ALLSPHINXOPTS) "$(BUILDDIR)/$@"
 
 .PHONY: help
 help:
