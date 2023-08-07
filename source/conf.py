@@ -21,16 +21,7 @@ extensions = [
     "sphinx_remove_toctrees",
 ]
 nb_execution_mode = "off"
-exclude_patterns = [
-    "_build", "Thumbs.db", ".DS_Store",
-    "objects/toi_1001.ipynb",
-    "objects/toi_1003.ipynb",
-    "objects/toi_1004.ipynb",
-    "objects/toi_1005.ipynb",
-    "objects/toi_1006.ipynb",
-    "objects/toi_1009.ipynb",
-    "objects/toi_1010.ipynb",
-]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 html_theme = "sphinx_book_theme"
 html_theme_options = dict(
     repository_url="https://github.com/dfm/tess-atlas",
