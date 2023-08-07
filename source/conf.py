@@ -7,6 +7,9 @@ html_title = project
 html_logo = "_static/atlas_logo.png"
 html_favicon = "_static/atlas_logo.png"
 release = "1"
+
+source_suffix = ['.md', '.rst', '.ipynb']
+
 # templates_path = ["_templates"]
 extensions = [
     "myst_nb",
