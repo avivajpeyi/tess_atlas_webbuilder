@@ -9,7 +9,7 @@ BUILDDIR      = build
 
 # Internal variables.
 # $(O) is meant as a shortcut for $(SPHINXOPTS)
-ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees  $(SPHINXOPTS) $(O) $(SOURCEDIR)
+ALLSPHINXOPTS   = -v -j auto -d $(BUILDDIR)/doctrees $(SPHINXOPTS) $(O) $(SOURCEDIR)
 
 .PHONY: help
 help:
