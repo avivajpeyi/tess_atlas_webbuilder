@@ -48,7 +48,6 @@ panels_add_bootstrap_css = True
 suppress_warnings = ["myst.domains", "myst.header", "etoc.toctree"]
 myst_heading_anchors = 2
 html_copy_source = True
-remove_from_toctrees = ["objects/toi_notebooks/toi_*.ipynb"]
 comments_config = {
     "utterances": {
         "repo": "avivajpeyi/tess-atlas",  # as https://utteranc.es/ not installed in dfm/tess-atlas atm
