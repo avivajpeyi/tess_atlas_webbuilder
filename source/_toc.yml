@@ -4,7 +4,3 @@ parts:
 - chapters:
   - file: citation
   - file: objects/example_loader
-- caption: All objects
-  chapters:
-    - glob: objects/toi*
-      hidden: true
