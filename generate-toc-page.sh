@@ -9,17 +9,17 @@ cat << EOF
 List of all analysed objects
 ----------------------------
 
-EOF
+$(for item in "$nbpath"/toi_*.ipynb; do \
+  number=$(echo "$item" | sed 's/\.ipynb//g' | sed 's/source\/objects\/toi_//g'); \
+  echo "- :doc:\`TOI $number <objects/toi_$number>\`"; \
+done | sort -V)
 
-for item in "$nbpath"/toi_*.ipynb; do
-  number=$(echo "$item" | sed 's/\.ipynb//g' | sed 's/source\/objects\/toi_//g')
-  echo "- :doc:\`TOI $number <objects/toi_$number>\`"
-done | sort -V
+EOF
 }
 
 newtocpage=$(generate_toc_page)
 
-if [ ! -f "$fname" ] || ! echo "$newtocpage" | diff -q "$fname" - ; then
+if [ ! -f "$fname" ] || ! echo "$newtocpage" | diff -q "$fname" - &> /dev/null ; then
   echo "===> Writing $fname"
   echo "$newtocpage" > "$fname"
 else
