@@ -12,7 +12,7 @@ BUILDDIR      = build
 ALLSPHINXOPTS = -v -j auto -d $(BUILDDIR)/doctrees $(SPHINXOPTS) $(O) $(SOURCEDIR)
 
 .PHONY: html
-html: Makefile
+html: Makefile tocpage
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) "$(BUILDDIR)/$@"
 
 .PHONY: help
@@ -31,6 +31,10 @@ clean:
 	rm -rf $(BUILDDIR)/*
 
 # Catch-all target: route all unknown targets to Sphinx
-.PHONY: Makefile
+.PHONY: Makefile tocpage
 %: Makefile
 	$(SPHINXBUILD) -b "$@" $(ALLSPHINXOPTS) "$(BUILDDIR)/$@"
+
+.PHONY: generate-toc-page.sh
+tocpage: Makefile generate-toc-page.sh
+	@./generate-toc-page.sh
