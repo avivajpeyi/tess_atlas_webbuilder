@@ -11,9 +11,18 @@ BUILDDIR      = build
 # $(O) is meant as a shortcut for $(SPHINXOPTS)
 ALLSPHINXOPTS = -v -j auto -d $(BUILDDIR)/doctrees $(SPHINXOPTS) $(O) $(SOURCEDIR)
 
-.PHONY: html
-html: Makefile tocpage
-	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) "$(BUILDDIR)/$@"
+.PHONY: dirhtml
+dirhtml: Makefile tocpage
+	$(SPHINXBUILD) -b "$@" $(ALLSPHINXOPTS) "$(BUILDDIR)/$@"
+
+.PHONY: generate-toc-page.sh
+tocpage: Makefile generate-toc-page.sh
+	@./generate-toc-page.sh
+
+# Catch-all target: route all unknown targets to Sphinx
+.PHONY: Makefile tocpage
+%: Makefile
+	$(SPHINXBUILD) -b "$@" $(ALLSPHINXOPTS) "$(BUILDDIR)/$@"
 
 .PHONY: help
 help:
@@ -29,12 +38,3 @@ help:
 .PHONY: clean
 clean:
 	rm -rf $(BUILDDIR)/*
-
-# Catch-all target: route all unknown targets to Sphinx
-.PHONY: Makefile tocpage
-%: Makefile
-	$(SPHINXBUILD) -b "$@" $(ALLSPHINXOPTS) "$(BUILDDIR)/$@"
-
-.PHONY: generate-toc-page.sh
-tocpage: Makefile generate-toc-page.sh
-	@./generate-toc-page.sh
