@@ -18,6 +18,14 @@ extensions = [
     "sphinx_book_theme",
     "sphinx_remove_toctrees",
 ]
+
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.ipynb': 'myst-nb',
+    '.myst': 'myst-nb',
+    '.md': 'myst-nb',
+}
+
 nb_execution_mode = "off"
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 html_theme = "sphinx_book_theme"

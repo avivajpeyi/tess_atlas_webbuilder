@@ -4,7 +4,7 @@ set -eu
 SCRIPT_DIR=$( cd -- "$( dirname -- "$(readlink -f ${BASH_SOURCE[0]})" )" &> /dev/null && pwd )
 PARENT_DIR=$(dirname "$SCRIPT_DIR")
 OBJECTS="$PARENT_DIR/source/objects"
-menu_page="$PARENT_DIR/source/menu_page.md"
+menu_page="$PARENT_DIR/source/menu_page.myst"
 
 function sort_nbs {
   for item in $OBJECTS/toi_*.ipynb; do echo "$(basename -- "$item" .ipynb)"; done | sort -t _ -k 2 -g

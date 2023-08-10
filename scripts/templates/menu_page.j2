@@ -1,3 +1,19 @@
+---
+jupytext:
+  formats: ipynb,py:light,md
+  text_representation:
+    extension: .py
+    format_name: light
+    format_version: '1.5'
+    jupytext_version: 1.14.5
+kernelspec:
+  display_name: Python 3 (ipykernel)
+  language: python
+  name: python3
+---
+
+
++++ {"tags": ["def", "full-width"]}
 # TOI Fits
 
 We analysed {{ N_TESS_ATLAS }} TOIs (TOIs with 2-min cadence lightcurve data availible) out of the {{ N_EXOFOP }} TOIs.
@@ -8,12 +24,15 @@ We analysed {{ N_TESS_ATLAS }} TOIs (TOIs with 2-min cadence lightcurve data ava
 
 Each TOI’s analysis has its own page. Access them from the table below.
 
+
 | TOI                          | Thumbnail |
 |:---------------------------- |:--------- |
 {% for row in rows %}
 | [{{ row[0] | pretty }}](objects/{{ row[0] }}) |{% for plot in row[1] %} [![{{ row[0] | pretty }} Phase Plot](objects/{{ row[0] }}_files/{{ plot }})](objects/{{ row[0] }}) {% endfor %}|
 {% endfor %}
 
+
++++ {"tags": ["def"]}
 The 'classification' column displays the TESS Follow-up Observing Program Working Group (TFOPWG) Dispostion
 of the TOI [[1]]. A full table of the TOIs can be found on the ExoFOP TOI page [[2]].
 
@@ -34,8 +53,9 @@ of the TOI [[1]]. A full table of the TOIs can be found on the ExoFOP TOI page [
 [1]: https://exoplanetarchive.ipac.caltech.edu/docs/API_toi_columns.html
 [2]: https://exofop.ipac.caltech.edu/tess/view_toi.php#
 
+-
+
 <!--COMMENTS WITH Utterance.es-->
-<!--FIXME: dont seem to be working atm :(-->
 ```{raw} html
 <script src="https://utteranc.es/client.js"
         repo="avivajpeyi/tess-atlas"

@@ -33,7 +33,7 @@ if __name__ == "__main__":
         lstrip_blocks=True,
     )
     environment.filters["pretty"] = pretty_name
-    template = environment.get_template("menu_page.tmpl")
+    template = environment.get_template("menu_page.j2")
 
     content = template.render(
         N_TESS_ATLAS="X",
