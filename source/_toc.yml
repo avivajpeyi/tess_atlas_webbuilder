@@ -4,5 +4,5 @@ parts:
 - chapters:
   - file: citation
   - file: objects/example_loader
-  - file: tois
-    title: Objects
+  - file: menu_page
+    title: TOI Fits

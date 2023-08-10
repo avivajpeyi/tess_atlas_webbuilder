@@ -1,0 +1,18 @@
+#!/bin/bash
+set -eu
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "$(readlink -f ${BASH_SOURCE[0]})" )" &> /dev/null && pwd )
+PARENT_DIR=$(dirname "$SCRIPT_DIR")
+OBJECTS="$PARENT_DIR/source/objects"
+
+# Check that every notebook has a matching directory of files
+for item in $OBJECTS/toi_*.ipynb ; do
+  name=$(basename -- "$item" .ipynb)
+  dir="$OBJECTS/${name}_files"
+  if [ ! -d $dir ]; then
+    echo "ERROR: '${name}.ipynb' has no matching '${name}_files' directory  [$dir does not exist]"
+    exit 1
+  fi
+done
+
+echo "OK"

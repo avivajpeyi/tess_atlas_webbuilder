@@ -6,25 +6,24 @@ SPHINXOPTS   ?=
 SPHINXBUILD  ?= sphinx-build
 SOURCEDIR     = source
 BUILDDIR      = build
+SCRIPTDIR     = ./scripts
 
 # Internal variables.
 # $(O) is meant as a shortcut for $(SPHINXOPTS)
 ALLSPHINXOPTS = -v -j auto -d $(BUILDDIR)/doctrees $(SPHINXOPTS) $(O) $(SOURCEDIR)
 
-.PHONY: dirhtml
-dirhtml: Makefile tocpage
+.PHONY: dirhtml tocs tocpage menupage help clean check Makefile
+
+dirhtml: Makefile menupage
 	$(SPHINXBUILD) -b "$@" $(ALLSPHINXOPTS) "$(BUILDDIR)/$@"
 
-.PHONY: generate-toc-page.sh
-tocpage: Makefile generate-toc-page.sh
-	@./generate-toc-page.sh
+menupage: check
+	$(SCRIPTDIR)/menu-page
 
 # Catch-all target: route all unknown targets to Sphinx
-.PHONY: Makefile tocpage
 %: Makefile
 	$(SPHINXBUILD) -b "$@" $(ALLSPHINXOPTS) "$(BUILDDIR)/$@"
 
-.PHONY: help
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
 	@echo "  html        to make standalone HTML files"
@@ -35,6 +34,8 @@ help:
 	@echo "  dummy       to check syntax errors of document sources"
 	@echo "  clean       to remove everything in the build directory"
 
-.PHONY: clean
+check:
+	$(SCRIPTDIR)/check
+
 clean:
 	rm -rf $(BUILDDIR)/*

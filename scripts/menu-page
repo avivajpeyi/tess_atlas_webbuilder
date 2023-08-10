@@ -1,0 +1,24 @@
+#!/bin/bash
+set -eu
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "$(readlink -f ${BASH_SOURCE[0]})" )" &> /dev/null && pwd )
+PARENT_DIR=$(dirname "$SCRIPT_DIR")
+OBJECTS="$PARENT_DIR/source/objects"
+menu_page="$PARENT_DIR/source/menu_page.md"
+
+function sort_nbs {
+  for item in $OBJECTS/toi_*.ipynb; do echo "$(basename -- "$item" .ipynb)"; done | sort -t _ -k 2 -g
+}
+
+function echo_sorted_nb_paths {
+  for item in $(sort_nbs); do echo "$OBJECTS/${item}.ipynb"; done
+}
+
+newpage=$("$SCRIPT_DIR/menu-page.py" $(echo_sorted_nb_paths))
+
+if [ ! -f "$menu_page" ] || ! echo "$newpage" | diff -q "$menu_page" - &> /dev/null ; then
+  echo "===> Writing $menu_page"
+  echo "$newpage" > "$menu_page"
+else
+  echo "==> $menu_page has not changed"
+fi
