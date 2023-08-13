@@ -6,7 +6,7 @@ SPHINXOPTS   ?=
 SPHINXBUILD  ?= sphinx-build
 SOURCEDIR     = source
 BUILDDIR      = build
-SCRIPTDIR     = ./scripts
+SCRIPTDIR     = scripts
 MENUPAGE      = $(SOURCEDIR)/menu_page.md
 
 # Internal variables.
@@ -16,14 +16,16 @@ ALLSPHINXOPTS = -v -j auto -d $(BUILDDIR)/doctrees $(SPHINXOPTS) $(O) $(SOURCEDI
 .PHONY: dirhtml tocs tocpage menupage help clean check Makefile
 
 dirhtml: Makefile menupage
+	@echo "==> Running sphinx build..."
 	$(SPHINXBUILD) -b "$@" $(ALLSPHINXOPTS) "$(BUILDDIR)/$@"
 
 menupage: check
 	@echo "==> Writing: $(MENUPAGE)"
-	@$(SCRIPTDIR)/menu-page.py $(SOURCEDIR) > $(MENUPAGE)
+	@./$(SCRIPTDIR)/menu-page.py $(SOURCEDIR) > $(MENUPAGE)
 
 # Catch-all target: route all unknown targets to Sphinx
 %: Makefile
+	@echo "==> Running sphinx build..."
 	$(SPHINXBUILD) -b "$@" $(ALLSPHINXOPTS) "$(BUILDDIR)/$@"
 
 help:
@@ -37,7 +39,7 @@ help:
 	@echo "  clean       to remove everything in the build directory"
 
 check:
-	@$(SCRIPTDIR)/check
+	@./$(SCRIPTDIR)/check
 
 clean:
 	rm -rf $(BUILDDIR)/*
