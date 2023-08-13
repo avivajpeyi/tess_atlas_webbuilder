@@ -18,7 +18,7 @@ dirhtml: Makefile menupage
 	$(SPHINXBUILD) -b "$@" $(ALLSPHINXOPTS) "$(BUILDDIR)/$@"
 
 menupage: check
-	$(SCRIPTDIR)/menu-page
+	@$(SCRIPTDIR)/menu-page
 
 # Catch-all target: route all unknown targets to Sphinx
 %: Makefile
@@ -35,7 +35,7 @@ help:
 	@echo "  clean       to remove everything in the build directory"
 
 check:
-	$(SCRIPTDIR)/check
+	@$(SCRIPTDIR)/check
 
 clean:
 	rm -rf $(BUILDDIR)/*

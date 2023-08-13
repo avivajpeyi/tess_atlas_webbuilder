@@ -4,6 +4,9 @@ set -eu
 SCRIPT_DIR=$( cd -- "$( dirname -- "$(readlink -f ${BASH_SOURCE[0]})" )" &> /dev/null && pwd )
 PARENT_DIR=$(dirname "$SCRIPT_DIR")
 OBJECTS="$PARENT_DIR/source/objects"
+SUMMARY_FILE="$PARENT_DIR/source/analysis_summary.csv"
+
+echo "==> Checking for: toi files directories..."
 
 # Check that every notebook has a matching directory of files
 for item in $OBJECTS/toi_*.ipynb ; do
@@ -15,4 +18,9 @@ for item in $OBJECTS/toi_*.ipynb ; do
   fi
 done
 
-echo "OK"
+echo "==> Checking for: $SUMMARY_FILE"
+# Ensure the summary file exists
+if [ ! -f "$SUMMARY_FILE" ]; then
+  echo "ERROR: $SUMMARY_FILE does not exist."
+  exit 1
+fi
