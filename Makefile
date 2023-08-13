@@ -7,6 +7,7 @@ SPHINXBUILD  ?= sphinx-build
 SOURCEDIR     = source
 BUILDDIR      = build
 SCRIPTDIR     = ./scripts
+MENUPAGE      = $(SOURCEDIR)/menu_page.md
 
 # Internal variables.
 # $(O) is meant as a shortcut for $(SPHINXOPTS)
@@ -18,7 +19,8 @@ dirhtml: Makefile menupage
 	$(SPHINXBUILD) -b "$@" $(ALLSPHINXOPTS) "$(BUILDDIR)/$@"
 
 menupage: check
-	@$(SCRIPTDIR)/menu-page
+	@echo "==> Writing: $(MENUPAGE)"
+	@$(SCRIPTDIR)/menu-page.py $(SOURCEDIR) > $(MENUPAGE)
 
 # Catch-all target: route all unknown targets to Sphinx
 %: Makefile
