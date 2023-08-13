@@ -24,3 +24,10 @@ if [ ! -f "$SUMMARY_FILE" ]; then
   echo "ERROR: $SUMMARY_FILE does not exist."
   exit 1
 fi
+
+echo "==> Adding phase plots to _static ..."
+cd source/_static/
+for item in $(find ../objects -name 'phase_plot_TOI*.png'); do
+  ln -fs $item .
+done
+cd - > /dev/null

@@ -24,7 +24,7 @@ menupage: check
 	@./$(SCRIPTDIR)/menu-page.py $(SOURCEDIR) > $(MENUPAGE)
 
 # Catch-all target: route all unknown targets to Sphinx
-%: Makefile
+%: Makefile check
 	@echo "==> Running sphinx build..."
 	$(SPHINXBUILD) -b "$@" $(ALLSPHINXOPTS) "$(BUILDDIR)/$@"
 
