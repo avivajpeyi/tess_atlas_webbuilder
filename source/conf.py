@@ -41,7 +41,9 @@ html_theme_options = dict(
     toc_title=project,
     # navbar_end=["paperbutton.html", "navbar-icon-links"],
     navbar_end=["navbar-icon-links"],
-    launch_buttons=dict(colab_url="https://colab.research.google.com"),
+    # launch_buttons=dict(
+        # colab_url="https://colab.research.google.com",
+    # ),
 )
 
 
