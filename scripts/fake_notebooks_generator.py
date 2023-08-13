@@ -5,6 +5,7 @@ NOTE: This assumes you have installed tess_atlas as a package.
 """
 from tqdm.auto import trange
 from tess_atlas.notebook_controllers.controllers import TOINotebookController
+from tess_atlas.data.analysis_summary import AnalysisSummary
 import argparse
 
 
@@ -15,9 +16,9 @@ def generate_fake_notebooks_dir(
         TOINotebookController._generate_test_notebook(
             toi_int=i, outdir=outdir, additional_files=additional_files
         )
-    # TODO: make a fake summary.csv
     print(f"Generated {n_toi} fake TOI notebooks in {outdir}")
-
+    summary = AnalysisSummary.load(outdir)
+    print(f"Saved analysis summary to {summary.fname(outdir)}")
 
 
 def parse_cli_args():
