@@ -22,7 +22,7 @@ def generate_table_html(src_dir, csv_path):
         href = f"'/objects/toi_{i_toi}/'"
         toi_html = f"<a href={href}> {i_toi}</a>"
         imgs = [
-            f"<a href={href}/'> <img src='/_static/{plot}' width='100px' height='100px'></a>"
+            f"<a href={href}/'> <img src='/_static/{plot}'></a>"
             for plot in plots
         ]
         plot_links.append(" ".join(imgs))
