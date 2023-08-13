@@ -43,3 +43,10 @@ check:
 
 clean:
 	rm -rf $(BUILDDIR)/*
+
+test:
+	@echo "==> Testing the sphinx build workflow..."
+	$(eval TMPDIR=test_notebooks_dir)
+	python $(SCRIPTDIR)/fake_notebooks_generator.py -n 10 -o $(TMPDIR)
+	$(SPHINXBUILD) -b "html" $(ALLSPHINXOPTS) "$(TMPDIR)/html"
+	@echo "==> Open pages at: file:///$(PWD)/$(TMPDIR)/html/index.html"
