@@ -6,6 +6,7 @@ import itables
 
 import pandas as pd
 from jinja2 import Environment, FileSystemLoader
+import sys
 
 
 # Uses itables to generate html for a fancy table
@@ -32,13 +33,14 @@ def generate_table_html(src_dir, csv_path):
     df = df.dropna()
     df = df.astype({"TOI" : "int"})
     df = df.loc[df["TOI"].isin(tois)]
+    df = df.reset_index(drop=True)
 
     # Add empty row for anything not found in summary file
     for toi in tois:
         if toi not in df["TOI"].values:
+            print(f"WARNING: did not find TOI {toi} in summary file", file=sys.stderr)
             df.loc[-1] = [toi, "", "", ""]
-
-    df = df.reset_index(drop=True)
+            df = df.reset_index(drop=True)
 
     df["TOI"] = toi_links
     df.insert(1, "Phase Plot", plot_links)
