@@ -27,7 +27,7 @@ fi
 
 echo "==> Adding phase plots to _static ..."
 cd source/_static/
-for item in $(find ../objects -name 'phase_plot_TOI*.png'); do
+for item in $(find -L ../objects -name 'phase_plot_TOI*.png'); do
   ln -fs $item .
 done
 cd - > /dev/null
