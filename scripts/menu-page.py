@@ -29,12 +29,22 @@ def generate_table_html(src_dir, csv_path):
         toi_links.append(toi_html)
 
     df = pd.read_csv(csv_path)[["TOI", "Status", "Category", "Classification"]]
+    df = df.dropna()
+    df = df.astype({"TOI" : "int"})
     df = df.loc[df["TOI"].isin(tois)]
+
+    # Add empty row for anything not found in summary file
+    for toi in tois:
+        if toi not in df["TOI"].values:
+            df.loc[-1] = [toi, "", "", ""]
+
+    df = df.reset_index(drop=True)
+
     df["TOI"] = toi_links
     df.insert(1, "Phase Plot", plot_links)
 
     html = itables.to_html_datatable(
-        df.reset_index(drop=True),
+        df,
         caption="TESS Atlas Catalog Summary",
         scrollX=True,
         lengthMenu=[5, 10, 20, 50],
