@@ -62,16 +62,23 @@ if __name__ == "__main__":
     cwd = Path(__file__).parent
     parser = argparse.ArgumentParser()
     parser.add_argument("source_directory", type=Path)
+    parser.add_argument("-s","--summary-file", type=Path)
     args = parser.parse_args()
     src_dir = args.source_directory.resolve()
 
-    csv_path = src_dir / "analysis_summary.csv"
-    assert csv_path.is_file()
+    if args.summary_file:
+        csv_path = args.summary_file.resolve()
+        print(csv_path)
+    else:
+        # assume summary file is in sourced directory
+        csv_path = src_dir / "analysis_summary.csv"
 
-    html_table = generate_table_html(src_dir, csv_path)
+    assert csv_path.is_file()
 
     # Get analysis counts
     counts = pd.read_csv(csv_path)["Status"].value_counts().to_dict()
+
+    html_table = generate_table_html(src_dir, csv_path)
 
     # Set up jinja2 env
     environment = Environment(

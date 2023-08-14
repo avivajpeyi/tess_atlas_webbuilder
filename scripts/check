@@ -4,7 +4,7 @@ set -eu
 SCRIPT_DIR=$( cd -- "$( dirname -- "$(readlink -f ${BASH_SOURCE[0]})" )" &> /dev/null && pwd )
 PARENT_DIR=$(dirname "$SCRIPT_DIR")
 OBJECTS="$PARENT_DIR/source/objects"
-SUMMARY_FILE="$PARENT_DIR/source/analysis_summary.csv"
+SUMMARY_FILE="$1"
 
 echo "==> Checking for: toi files directories..."
 
