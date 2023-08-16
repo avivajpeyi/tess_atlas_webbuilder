@@ -13,20 +13,16 @@ import sys
 def generate_table_html(src_dir, csv_path):
     tois = []
     toi_links = []
-    plot_links = []
+    thumbnails = []
 
     # find phaseplots for each notebook
     for d in (src_dir / "objects").glob("toi_*_files"):
         i_toi = int(str(d.name).removeprefix("toi_").removesuffix("_files"))
         tois.append(i_toi)
-        plots = [str(i.name) for i in d.glob("phase_plot_TOI*.png")]
         href = f"'/objects/toi_{i_toi}/'"
         toi_html = f"<a href={href}> {i_toi}</a>"
-        imgs = [
-            f"<a href={href}/'> <img src='/_static/{plot}' style='width:500px;'></a>"
-            for plot in plots
-        ]
-        plot_links.append(" ".join(imgs))
+        thumbnail = f"<a href={href}/'> <img src='/_static/thumbnail_{i_toi}.png'></a>"
+        thumbnails.append(thumbnail)
         toi_links.append(toi_html)
 
     df = pd.read_csv(csv_path)[["TOI", "Status", "Category", "Classification"]]
@@ -43,7 +39,7 @@ def generate_table_html(src_dir, csv_path):
             df = df.reset_index(drop=True)
 
     df["TOI"] = toi_links
-    df.insert(1, "Phase Plot", plot_links)
+    df.insert(1, "Phase Plot", thumbnails)
 
     html = itables.to_html_datatable(
         df,
@@ -53,6 +49,7 @@ def generate_table_html(src_dir, csv_path):
         classes="compact",
         maxBytes=0,
         connected=True,
+        style="table-layout:auto;width:100%;float:none"
     )
 
     return html

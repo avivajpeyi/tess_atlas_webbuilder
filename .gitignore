@@ -1,4 +1,4 @@
 *.csv
 *.log
 menu_page.md
-source/_static/phase_plot_TOI*.png
+source/_static/thumbnail_*.png

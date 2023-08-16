@@ -25,9 +25,10 @@ if [ ! -f "$SUMMARY_FILE" ]; then
   exit 1
 fi
 
-echo "==> Adding phase plots to _static ..."
+echo "==> Adding thumbnails to source/_static/ ..."
 cd source/_static/
-for item in $(find -L ../objects -name 'phase_plot_TOI*.png'); do
-  ln -fs $item .
+for item in ../objects/toi_*_files/thumbnail.png; do
+  itoi=$(basename "$(dirname "$item")" | cut -d'_' -f2)
+  ln -fs "$item" "thumbnail_${itoi}.png"
 done
 cd - > /dev/null
