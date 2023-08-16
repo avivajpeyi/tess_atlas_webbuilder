@@ -4,3 +4,4 @@ sphinx_external_toc
 sphinx_design
 sphinx_book_theme
 sphinx_remove_toctrees
+itables
