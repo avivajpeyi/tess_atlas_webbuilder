@@ -8,6 +8,7 @@ SOURCEDIR     = source
 BUILDDIR      = build
 SCRIPTDIR     = scripts
 MENUPAGE      = $(SOURCEDIR)/menu_page.md
+SUMMARYFILE   = $(SOURCEDIR)/analysis_summary.csv
 
 # Internal variables.
 # $(O) is meant as a shortcut for $(SPHINXOPTS)
@@ -21,7 +22,7 @@ dirhtml: Makefile menupage
 
 menupage: check
 	@echo "==> Writing: $(MENUPAGE)"
-	@./$(SCRIPTDIR)/menu-page.py $(SOURCEDIR) > $(MENUPAGE)
+	@./$(SCRIPTDIR)/menu-page.py -s $(SUMMARYFILE) $(SOURCEDIR) > $(MENUPAGE)
 
 # Catch-all target: route all unknown targets to Sphinx
 %: Makefile check
@@ -39,7 +40,7 @@ help:
 	@echo "  clean       to remove everything in the build directory"
 
 check:
-	@./$(SCRIPTDIR)/check
+	@./$(SCRIPTDIR)/check $(SUMMARYFILE)
 
 clean:
 	rm -rf $(BUILDDIR)/*

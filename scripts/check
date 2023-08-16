@@ -4,7 +4,7 @@ set -eu
 SCRIPT_DIR=$( cd -- "$( dirname -- "$(readlink -f ${BASH_SOURCE[0]})" )" &> /dev/null && pwd )
 PARENT_DIR=$(dirname "$SCRIPT_DIR")
 OBJECTS="$PARENT_DIR/source/objects"
-SUMMARY_FILE="$PARENT_DIR/source/analysis_summary.csv"
+SUMMARY_FILE="$1"
 
 echo "==> Checking for: toi files directories..."
 
@@ -25,9 +25,10 @@ if [ ! -f "$SUMMARY_FILE" ]; then
   exit 1
 fi
 
-echo "==> Adding phase plots to _static ..."
+echo "==> Adding thumbnails to source/_static/ ..."
 cd source/_static/
-for item in $(find ../objects -name 'phase_plot_TOI*.png'); do
-  ln -fs $item .
+for item in ../objects/toi_*_files/thumbnail.png; do
+  itoi=$(basename "$(dirname "$item")" | cut -d'_' -f2)
+  ln -fs "$item" "thumbnail_${itoi}.png"
 done
 cd - > /dev/null
