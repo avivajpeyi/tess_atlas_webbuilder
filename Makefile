@@ -1,27 +1,21 @@
-# Makefile for Sphinx documentation
-#
-
 # You can set these variables from the command line.
 SPHINXOPTS   ?=
 SPHINXBUILD  ?= sphinx-build
-SOURCEDIR     = source
-BUILDDIR      = build
-SCRIPTDIR     = scripts
-MENUPAGE      = $(SOURCEDIR)/menu_page.md
-SUMMARYFILE   = $(SOURCEDIR)/analysis_summary.csv
 
-# Internal variables.
-# $(O) is meant as a shortcut for $(SPHINXOPTS)
-ALLSPHINXOPTS = -v -j auto -d $(BUILDDIR)/doctrees $(SPHINXOPTS) $(O) $(SOURCEDIR)
+# Internal variables. $(O) is meant as a shortcut for $(SPHINXOPTS)
+ALLSPHINXOPTS = -v -j auto -d build/doctrees $(SPHINXOPTS) $(O) source
+SCRIPTDIR     = scripts
+MENUPAGE      = source/menu_page.md
+SUMMARYFILE   = source/analysis_summary.csv
 
 .PHONY: dirhtml tocs tocpage menupage help clean check Makefile preprocess
 
-dirhtml html changes linkcheck dummy: Makefile menupage
+dirhtml html changes linkcheck dummy: menupage
 	@echo "==> Running sphinx build..."
-	$(eval BDIR=$(BUILDDIR)/$@)
-	mkdir -p $(BDIR); rm -f $(BDIR)/toi_data
-	ln -s $(PWD)/$(SOURCEDIR)/objects $(BDIR)/toi_data
-	$(SPHINXBUILD) -b "$@" $(ALLSPHINXOPTS) "$(BDIR)"
+	$(eval BUILDDIR=build/$@)
+	mkdir -p $(BUILDDIR); rm -f $(BUILDDIR)/toi_data
+	ln -s $(PWD)/source/objects $(BUILDDIR)/toi_data
+	$(SPHINXBUILD) -b "$@" $(ALLSPHINXOPTS) "$(BUILDDIR)"
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -34,13 +28,13 @@ help:
 
 menupage: check
 	@echo "==> Writing: $(MENUPAGE)"
-	@./$(SCRIPTDIR)/menu-page.py -s $(SUMMARYFILE) $(SOURCEDIR) > $(MENUPAGE)
+	@./$(SCRIPTDIR)/menu-page.py -s $(SUMMARYFILE) source > $(MENUPAGE)
 
 check:
 	@./$(SCRIPTDIR)/check $(SUMMARYFILE)
 
 clean:
-	rm -rf $(BUILDDIR)/*
+	rm -rf build/*
 
 preprocess:
-	for item in $(SOURCEDIR)/objects/toi_*.ipynb; do echo $$item; ./$(SCRIPTDIR)/preprocess.py $$item; done
+	for item in source/objects/toi_*.ipynb; do echo $$item; ./$(SCRIPTDIR)/preprocess.py $$item; done
