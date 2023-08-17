@@ -8,8 +8,13 @@ SCRIPTDIR     = scripts
 MENUPAGE      = source/menu_page.md
 SUMMARYFILE   = source/analysis_summary.csv
 
-.PHONY: dirhtml tocs tocpage menupage help clean check Makefile preprocess
+notebooks = $(notdir $(wildcard source/objects/toi_*.ipynb))
+file_dirs = $(notdir $(wildcard source/objects/toi_*_files))
+expected_dirs = $(addsuffix _files, $(basename $(notebooks)))
 
+.PHONY: dirhtml menupage help clean check preprocess checks check_for_file_dirs check_for_summary_file checkall
+
+# Default is to build 'dirhtml'
 dirhtml html changes linkcheck dummy: menupage
 	@echo "==> Running sphinx build..."
 	$(eval BUILDDIR=build/$@)
@@ -26,15 +31,24 @@ help:
 	@echo "  dummy       to check syntax errors of document sources"
 	@echo "  clean       to remove everything in the build directory"
 
-menupage: check
+menupage: checks
 	@echo "==> Writing: $(MENUPAGE)"
 	@./$(SCRIPTDIR)/menu-page.py -s $(SUMMARYFILE) source > $(MENUPAGE)
-
-check:
-	@./$(SCRIPTDIR)/check $(SUMMARYFILE)
 
 clean:
 	rm -rf build/*
 
 preprocess:
 	for item in source/objects/toi_*.ipynb; do echo $$item; ./$(SCRIPTDIR)/preprocess.py $$item; done
+
+checks: check_for_summary_file check_for_file_dirs
+
+check_for_file_dirs:
+ifneq ($(expected_dirs), $(file_dirs))
+	@echo "ERROR: missing file directories... $(filter-out $(file_dirs), $(expected_dirs))" && exit 1
+endif
+
+check_for_summary_file:
+	@test -f $(SUMMARYFILE) || (echo "ERROR: $(SUMMARYFILE) does not exist" && exit 1)
+
+checkall: checks linkcheck dummy
