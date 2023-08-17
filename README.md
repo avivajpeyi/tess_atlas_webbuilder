@@ -15,4 +15,11 @@ pip install -r requirements.txt
 
 
 ## Notes on configs for server 
+symlink the apache webdir to the tess-atlas html pages:
+```
 sudo ln -fs /mnt/storage/tess_atlas_webbuilder/build/dirhtml html
+```
+Then restart 
+```
+sudo systemctl restart httpd
+```
