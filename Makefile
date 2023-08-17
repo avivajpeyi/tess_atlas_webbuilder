@@ -16,11 +16,15 @@ expected_dirs = $(addsuffix _files, $(basename $(notebooks)))
 
 # Default is to build 'dirhtml'
 dirhtml html changes linkcheck dummy: menupage
-	@echo "==> Running sphinx build..."
-	$(eval BUILDDIR=build/$@)
-	mkdir -p $(BUILDDIR); rm -f $(BUILDDIR)/toi_data
+	@mkdir -p "build/$@"
+	$(SPHINXBUILD) -b "$@" $(ALLSPHINXOPTS) "build/$@"
+	@$(MAKE) "$@_links"
+
+%_links:
+	$(eval BUILDDIR=build/$(subst _links,,$@))
+	@echo "==> Adding links to source..."
+	@mkdir -p $(BUILDDIR); rm -f $(BUILDDIR)/toi_data
 	ln -s $(PWD)/source/objects $(BUILDDIR)/toi_data
-	$(SPHINXBUILD) -b "$@" $(ALLSPHINXOPTS) "$(BUILDDIR)"
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
