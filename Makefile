@@ -14,7 +14,7 @@ SUMMARYFILE   = $(SOURCEDIR)/analysis_summary.csv
 # $(O) is meant as a shortcut for $(SPHINXOPTS)
 ALLSPHINXOPTS = -v -j auto -d $(BUILDDIR)/doctrees $(SPHINXOPTS) $(O) $(SOURCEDIR)
 
-.PHONY: dirhtml tocs tocpage menupage help clean check Makefile
+.PHONY: dirhtml tocs tocpage menupage help clean check Makefile preprocess
 
 dirhtml html changes linkcheck dummy: Makefile menupage
 	@echo "==> Running sphinx build..."
@@ -41,3 +41,6 @@ check:
 
 clean:
 	rm -rf $(BUILDDIR)/*
+
+preprocess:
+	for item in $(SOURCEDIR)/objects/toi_*.ipynb; do ./$(SCRIPTDIR)/preprocess.py $$item; done
