@@ -24,11 +24,3 @@ if [ ! -f "$SUMMARY_FILE" ]; then
   echo "ERROR: $SUMMARY_FILE does not exist."
   exit 1
 fi
-
-echo "==> Adding thumbnails to source/_static/ ..."
-cd source/_static/
-for item in ../objects/toi_*_files/thumbnail.png; do
-  itoi=$(basename "$(dirname "$item")" | cut -d'_' -f2)
-  ln -fs "$item" "thumbnail_${itoi}.png"
-done
-cd - > /dev/null

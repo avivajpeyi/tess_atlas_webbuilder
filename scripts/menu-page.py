@@ -21,7 +21,7 @@ def generate_table_html(src_dir, csv_path):
         tois.append(i_toi)
         href = f"'/objects/toi_{i_toi}/'"
         toi_html = f"<a href={href}> {i_toi}</a>"
-        thumbnail = f"<a href={href}/'> <img src='/_static/thumbnail_{i_toi}.png'></a>"
+        thumbnail = f"<a href={href}/'> <img src='/toi_data/toi_{i_toi}_files/thumbnail.png'></a>"
         thumbnails.append(thumbnail)
         toi_links.append(toi_html)
 
