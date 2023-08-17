@@ -19,8 +19,8 @@ ALLSPHINXOPTS = -v -j auto -d $(BUILDDIR)/doctrees $(SPHINXOPTS) $(O) $(SOURCEDI
 dirhtml html changes linkcheck dummy: Makefile menupage
 	@echo "==> Running sphinx build..."
 	$(eval BDIR=$(BUILDDIR)/$@)
-	mkdir -p $(BDIR)
-	ln -fhs $(PWD)/$(SOURCEDIR)/objects $(BDIR)/toi_data
+	mkdir -p $(BDIR); rm -f $(BDIR)/toi_data
+	ln -s $(PWD)/$(SOURCEDIR)/objects $(BDIR)/toi_data
 	$(SPHINXBUILD) -b "$@" $(ALLSPHINXOPTS) "$(BDIR)"
 
 help:
@@ -43,4 +43,4 @@ clean:
 	rm -rf $(BUILDDIR)/*
 
 preprocess:
-	for item in $(SOURCEDIR)/objects/toi_*.ipynb; do ./$(SCRIPTDIR)/preprocess.py $$item; done
+	for item in $(SOURCEDIR)/objects/toi_*.ipynb; do echo $$item; ./$(SCRIPTDIR)/preprocess.py $$item; done
