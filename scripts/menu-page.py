@@ -27,7 +27,7 @@ def generate_table_html(src_dir, csv_path):
 
     df = pd.read_csv(csv_path)[["TOI", "Status", "Category", "Classification"]]
     df = df.dropna()
-    df = df.astype({"TOI" : "int"})
+    df = df.astype({"TOI": "int"})
     df = df.loc[df["TOI"].isin(tois)]
     df = df.reset_index(drop=True)
 
@@ -49,7 +49,7 @@ def generate_table_html(src_dir, csv_path):
         classes="compact",
         maxBytes=0,
         connected=True,
-        style="table-layout:auto;width:100%;float:none"
+        style="table-layout:auto;width:100%;float:none",
     )
 
     return html
@@ -59,7 +59,7 @@ if __name__ == "__main__":
     cwd = Path(__file__).parent
     parser = argparse.ArgumentParser()
     parser.add_argument("source_directory", type=Path)
-    parser.add_argument("-s","--summary-file", type=Path)
+    parser.add_argument("-s", "--summary-file", type=Path)
     args = parser.parse_args()
     src_dir = args.source_directory.resolve()
 
