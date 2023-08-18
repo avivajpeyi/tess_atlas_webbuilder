@@ -18,12 +18,12 @@ expected_dirs = $(addsuffix _files, $(basename $(notebooks)))
 dirhtml html changes linkcheck dummy: menupage
 	@mkdir -p "build/$@"
 	$(SPHINXBUILD) -b "$@" $(ALLSPHINXOPTS) "build/$@"
-	@$(MAKE) "$@_links"
+	$(if $(findstring $@, dirhtml html), @$(MAKE) "$@_links")
 
 %_links:
 	$(eval BUILDDIR=build/$(subst _links,,$@))
 	@echo "==> Adding links to source..."
-	@mkdir -p $(BUILDDIR); rm -f $(BUILDDIR)/toi_data
+	rm -f $(BUILDDIR)/toi_data
 	ln -s $(PWD)/source/objects $(BUILDDIR)/toi_data
 
 help:
