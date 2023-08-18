@@ -65,7 +65,6 @@ if __name__ == "__main__":
 
     if args.summary_file:
         csv_path = args.summary_file.resolve()
-        print(csv_path)
     else:
         # assume summary file is in sourced directory
         csv_path = src_dir / "analysis_summary.csv"
