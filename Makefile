@@ -24,15 +24,15 @@ endif
 
 # Default is to build 'dirhtml'
 dirhtml html changes linkcheck dummy: menupage
-	@mkdir -p "build/$@"
+	@mkdir -p "build/$@/toi_data"
 	$(SPHINXBUILD) -b "$@" $(ALLSPHINXOPTS) "build/$@"
 	$(if $(findstring $@, dirhtml html), @$(MAKE) "$@_links")
 
 %_links:
 	$(eval BUILDDIR=build/$(subst _links,,$@))
 	@echo "==> Adding links to source..."
-	rm -f $(BUILDDIR)/toi_data
-	$(LN) -rs source/objects $(BUILDDIR)/toi_data
+	rm -f $(BUILDDIR)/toi_data/toi_*_files
+	$(LN) -rs source/objects/toi_*_files $(BUILDDIR)/toi_data/
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
