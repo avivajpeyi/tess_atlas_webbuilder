@@ -9,6 +9,8 @@ if __name__ == "__main__":
     parser.add_argument("notebook", type=Path)
     args = parser.parse_args()
 
+    print("Preprocess:", args.notebook)
+
     n = nbf.read(args.notebook, nbf.NO_CONVERT)
 
     n["metadata"]["orphan"] = True

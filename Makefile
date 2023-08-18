@@ -50,8 +50,10 @@ menupage: checks
 clean:
 	rm -rf build/*
 
+# Max concurrent procs
+NP = $(shell echo $$(( $(shell nproc) * 8 )))
 preprocess:
-	for item in source/objects/toi_*.ipynb; do echo $$item; ./$(SCRIPTDIR)/preprocess.py $$item; done
+	echo source/objects/toi_*.ipynb | xargs -P $(NP) -n 1 ./$(SCRIPTDIR)/preprocess.py
 
 checks: check_for_summary_file check_for_file_dirs
 
