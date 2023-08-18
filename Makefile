@@ -12,6 +12,14 @@ notebooks = $(notdir $(wildcard source/objects/toi_*.ipynb))
 file_dirs = $(notdir $(wildcard source/objects/toi_*_files))
 expected_dirs = $(addsuffix _files, $(basename $(notebooks)))
 
+# Use GNU version of ln on Darwin (MacOS)
+UNAME := $(shell uname)
+ifeq ($(UNAME), Linux)
+  LN = ln
+else
+  LN = gln
+endif
+
 .PHONY: dirhtml menupage help clean check preprocess checks check_for_file_dirs check_for_summary_file checkall
 
 # Default is to build 'dirhtml'
@@ -24,7 +32,7 @@ dirhtml html changes linkcheck dummy: menupage
 	$(eval BUILDDIR=build/$(subst _links,,$@))
 	@echo "==> Adding links to source..."
 	rm -f $(BUILDDIR)/toi_data
-	ln -s $(PWD)/source/objects $(BUILDDIR)/toi_data
+	$(LN) -rs source/objects $(BUILDDIR)/toi_data
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
