@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 
+import sys
 import argparse
-from pathlib import Path
 import itables
+from pathlib import Path
 
 import pandas as pd
+import numpy as np
 from jinja2 import Environment, FileSystemLoader
-import sys
 
 EXOFOP = "https://exofop.ipac.caltech.edu/tess/"
 TIC_DATASOURCE = EXOFOP + "download_toi.php?sort=toi&output=csv"
@@ -77,6 +78,9 @@ if __name__ == "__main__":
     # Get analysis counts
     df = pd.read_csv(csv_path)
     counts = df["Status"].value_counts().to_dict()
+    num_tois = len(
+        np.unique(pd.read_csv(TIC_DATASOURCE)["TOI"].values.astype(np.int64))
+    )
 
     html_table = generate_table_html(src_dir, csv_path)
 
@@ -91,7 +95,7 @@ if __name__ == "__main__":
     # Render menu_page.myst and print to stdout
     content = template.render(
         N_TESS_ATLAS=len(df["Status"].dropna()),
-        N_EXOFOP=len(pd.read_csv(TIC_DATASOURCE)),
+        N_EXOFOP=num_tois,
         N_PASS=counts.get("completed", 0),
         N_FAIL=counts.get("failed", 0),
         N_NOT_STARTED=counts.get("not_started", 0),
