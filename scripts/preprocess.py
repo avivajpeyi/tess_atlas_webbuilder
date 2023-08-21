@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import sys
 import nbformat as nbf
 import argparse
 from pathlib import Path
@@ -7,9 +8,8 @@ if __name__ == "__main__":
     cwd = Path(__file__).parent
     parser = argparse.ArgumentParser()
     parser.add_argument("notebook", type=Path)
+    parser.add_argument("-o", "--output", type=Path, help="output file path/name to save to", metavar='file')
     args = parser.parse_args()
-
-    print("Preprocess:", args.notebook)
 
     n = nbf.read(args.notebook, nbf.NO_CONVERT)
 
@@ -30,5 +30,7 @@ if __name__ == "__main__":
             if rejoin:
                 n["cells"][i]["source"] = "\n".join(lines)
 
-    # Save
-    nbf.write(n, args.notebook)
+    if args.output:
+        nbf.write(n, args.output)
+    else:
+        nbf.write(n, sys.stdout)

@@ -53,7 +53,7 @@ clean:
 # Max concurrent procs
 NP = $(shell echo $$(( $(shell nproc) * 8 )))
 preprocess:
-	echo source/objects/toi_*.ipynb | xargs -P $(NP) -n 1 ./$(SCRIPTDIR)/preprocess.py
+	@echo source/objects/toi_*.ipynb | xargs -t -P $(NP) -n 1 -I FILE ./$(SCRIPTDIR)/preprocess.py FILE -o FILE
 
 checks: check_for_summary_file check_for_file_dirs
 
