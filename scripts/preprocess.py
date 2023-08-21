@@ -8,7 +8,13 @@ if __name__ == "__main__":
     cwd = Path(__file__).parent
     parser = argparse.ArgumentParser()
     parser.add_argument("notebook", type=Path)
-    parser.add_argument("-o", "--output", type=Path, help="output file path/name to save to", metavar='file')
+    parser.add_argument(
+        "-o",
+        "--output",
+        type=Path,
+        help="output file path/name to save to",
+        metavar="file",
+    )
     args = parser.parse_args()
 
     n = nbf.read(args.notebook, nbf.NO_CONVERT)

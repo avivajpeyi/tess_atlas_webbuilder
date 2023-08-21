@@ -1,12 +1,12 @@
 # You can set these variables from the command line.
 SPHINXOPTS   ?=
 SPHINXBUILD  ?= sphinx-build
+SUMMARYFILE  ?= source/analysis_summary.csv
 
-# Internal variables. $(O) is meant as a shortcut for $(SPHINXOPTS)
-ALLSPHINXOPTS = -v -j auto -d build/doctrees $(SPHINXOPTS) $(O) source
+# Internal variables
+ALLSPHINXOPTS = -v -j auto -d build/doctrees $(SPHINXOPTS) source
 SCRIPTDIR     = scripts
 MENUPAGE      = source/menu_page.md
-SUMMARYFILE   = source/analysis_summary.csv
 
 notebooks = $(notdir $(wildcard source/objects/toi_*.ipynb))
 file_dirs = $(notdir $(wildcard source/objects/toi_*_files))
