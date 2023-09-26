@@ -1,12 +1,16 @@
 #!/usr/bin/env python
 
+import sys
 import argparse
-from pathlib import Path
 import itables
+from pathlib import Path
 
 import pandas as pd
+import numpy as np
 from jinja2 import Environment, FileSystemLoader
-import sys
+
+EXOFOP = "https://exofop.ipac.caltech.edu/tess/"
+TIC_DATASOURCE = EXOFOP + "download_toi.php?sort=toi&output=csv"
 
 
 # Uses itables to generate html for a fancy table
@@ -21,13 +25,13 @@ def generate_table_html(src_dir, csv_path):
         tois.append(i_toi)
         href = f"'/objects/toi_{i_toi}/'"
         toi_html = f"<a href={href}> {i_toi}</a>"
-        thumbnail = f"<a href={href}/'> <img src='/_static/thumbnail_{i_toi}.png'></a>"
+        thumbnail = f"<a href={href}/'> <img src='/toi_data/toi_{i_toi}_files/thumbnail.png'></a>"
         thumbnails.append(thumbnail)
         toi_links.append(toi_html)
 
     df = pd.read_csv(csv_path)[["TOI", "Status", "Category", "Classification"]]
     df = df.dropna()
-    df = df.astype({"TOI" : "int"})
+    df = df.astype({"TOI": "int"})
     df = df.loc[df["TOI"].isin(tois)]
     df = df.reset_index(drop=True)
 
@@ -49,7 +53,7 @@ def generate_table_html(src_dir, csv_path):
         classes="compact",
         maxBytes=0,
         connected=True,
-        style="table-layout:auto;width:100%;float:none"
+        style="table-layout:auto;width:100%;float:none",
     )
 
     return html
@@ -59,13 +63,12 @@ if __name__ == "__main__":
     cwd = Path(__file__).parent
     parser = argparse.ArgumentParser()
     parser.add_argument("source_directory", type=Path)
-    parser.add_argument("-s","--summary-file", type=Path)
+    parser.add_argument("-s", "--summary-file", type=Path)
     args = parser.parse_args()
     src_dir = args.source_directory.resolve()
 
     if args.summary_file:
         csv_path = args.summary_file.resolve()
-        print(csv_path)
     else:
         # assume summary file is in sourced directory
         csv_path = src_dir / "analysis_summary.csv"
@@ -73,7 +76,11 @@ if __name__ == "__main__":
     assert csv_path.is_file()
 
     # Get analysis counts
-    counts = pd.read_csv(csv_path)["Status"].value_counts().to_dict()
+    df = pd.read_csv(csv_path)
+    counts = df["Status"].value_counts().to_dict()
+    num_tois = len(
+        np.unique(pd.read_csv(TIC_DATASOURCE)["TOI"].values.astype(np.int64))
+    )
 
     html_table = generate_table_html(src_dir, csv_path)
 
@@ -87,8 +94,8 @@ if __name__ == "__main__":
 
     # Render menu_page.myst and print to stdout
     content = template.render(
-        N_TESS_ATLAS=" **TODO** ",
-        N_EXOFOP=" **TODO** ",
+        N_TESS_ATLAS=len(df["Status"].dropna()),
+        N_EXOFOP=num_tois,
         N_PASS=counts.get("completed", 0),
         N_FAIL=counts.get("failed", 0),
         N_NOT_STARTED=counts.get("not_started", 0),

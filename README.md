@@ -11,3 +11,15 @@ pip install -r requirements.txt
 1. Put notebooks and other content into `source/objects/`
 2. Build website by running `make html`
 3. Clean site build dir by running `make clean`
+
+
+
+## Notes on configs for server 
+symlink the apache webdir to the tess-atlas html pages:
+```
+sudo ln -fs /mnt/storage/tess_atlas_webbuilder/build/dirhtml html
+```
+Then restart 
+```
+sudo systemctl restart httpd
+```
