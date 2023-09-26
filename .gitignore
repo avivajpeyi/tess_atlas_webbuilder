@@ -1,3 +1,8 @@
 *.csv
 *.log
 menu_page.md
+source/_static/phase_plot_TOI*.png
+
+.tess-atlas-cache
+test_notebooks_dir
+source/_static/thumbnail_*.png

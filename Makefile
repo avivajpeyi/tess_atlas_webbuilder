@@ -66,3 +66,10 @@ check_for_summary_file:
 	@test -f $(SUMMARYFILE) || (echo "ERROR: $(SUMMARYFILE) does not exist" && exit 1)
 
 checkall: checks linkcheck dummy
+
+test_build:
+	@echo "==> Testing the sphinx build workflow..."
+	$(eval TMPDIR=test_notebooks_dir)
+	python $(SCRIPTDIR)/fake_notebooks_generator.py -n 10 -o $(TMPDIR)
+	$(SPHINXBUILD) -b "html" $(ALLSPHINXOPTS) "$(TMPDIR)/html"
+	@echo "==> Open pages at: file:///$(PWD)/$(TMPDIR)/html/index.html"
