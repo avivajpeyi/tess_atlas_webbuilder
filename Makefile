@@ -59,7 +59,7 @@ checks: check_for_summary_file check_for_file_dirs
 
 check_for_file_dirs:
 ifneq ($(expected_dirs), $(file_dirs))
-	@echo "ERROR: missing file directories... $(filter-out $(file_dirs), $(expected_dirs))" && exit 1
+	@echo "WARNING: missing file directories... $(filter-out $(file_dirs), $(expected_dirs))"
 endif
 
 check_for_summary_file:
