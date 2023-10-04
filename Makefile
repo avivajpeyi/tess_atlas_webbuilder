@@ -31,7 +31,7 @@ dirhtml html changes linkcheck dummy: menupage
 %_links:
 	$(eval BUILDDIR=build/$(subst _links,,$@))
 	@echo "==> Adding links to source..."
-	rm -f $(BUILDDIR)/toi_data/toi_*_files
+	rm -rf $(BUILDDIR)/toi_data/toi_*_files
 	$(LN) -rs source/objects/toi_*_files $(BUILDDIR)/toi_data/
 
 help:
